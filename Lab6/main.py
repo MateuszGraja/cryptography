@@ -32,7 +32,6 @@ def watermark(image: Image.Image, key: int, tekst: str, n: int, d: int) -> Image
     return Image.fromarray(img_array.astype(np.uint8))
 
 def watermark_detect(suspect: Image.Image, key: int, n: int, d: int, sekret_len: int) -> str:
-    """Odczytuje watermark z obrazu"""
     np.random.seed(key)
     img_array = np.array(suspect, dtype=int)
 
