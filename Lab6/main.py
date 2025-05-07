@@ -2,6 +2,8 @@ import numpy as np
 from PIL import Image
 import random
 
+KLUCZ = 6969
+
 def tekst_to_bin(tekst: str) -> str:
     return ''.join(format(ord(i), '08b') for i in tekst)
 
@@ -55,14 +57,14 @@ def watermark_detect(suspect: Image.Image, key: int, n: int, d: int, sekret_len:
 
 def main(path, tekst):
     image = Image.open(path)
-    watermarked = watermark(image, key=1234, tekst=tekst, n=5000, d=100)
+    watermarked = watermark(image, key=KLUCZ, tekst=tekst, n=5000, d=100)
     watermarkpath = path.replace(".png", "_watermarked.png")
     watermarked.save(watermarkpath)
 
-    odczytany_sekret = watermark_detect(watermarked, key=1234, n=5000, d=100, sekret_len=len(tekst_to_bin(tekst)))
+    odczytany_sekret = watermark_detect(watermarked, key=KLUCZ, n=5000, d=100, sekret_len=len(tekst_to_bin(tekst)))
     print(f"Odtworzony tekst z watermarku: {odczytany_sekret}")
 
-    print(f"Oryginalny obraz:", watermark_detect(image, key=1234, n=5000, d=100, sekret_len=len(tekst_to_bin(tekst))))
+    print(f"Oryginalny obraz:", watermark_detect(image, key=KLUCZ, n=5000, d=100, sekret_len=len(tekst_to_bin(tekst))))
 
 tekst = "Ala ma kota"
 main("Lab6/input.png", tekst)
